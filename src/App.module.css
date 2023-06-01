@@ -1,0 +1,21 @@
+.wrapper {
+  max-width: 70rem;
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+  display: grid;
+  grid-template-columns: 256px 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/*mobile*/
+@media (max-width: 768px) {
+  html {
+    font-size: 87.5%; /* no celular não pode ser valor bruto (em px) pra ele conseguir aumentar/diminuir => 14*100/16 = 87,7% */
+  }
+
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+}
