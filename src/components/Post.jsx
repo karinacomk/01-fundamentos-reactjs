@@ -1,43 +1,61 @@
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css'
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+import { useState } from 'react';
 
-export function Post(props) {
-  console.log(props);
-  
-  return (
+export function Post({ author, publishedAt, content }) { 
+  // https://github.com/kdikarina.png
+
+  const [comments, setComments] = useState([
+    1,
+    2,
+  ]);
+
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR,
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true
+  });
+
+  function handleCrateNewComment() {
+    event.preventDefault()
+
+    setComments([...comments, comments.length + 1]);
+  }
+
+   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar className={styles.avatar} src="https://github.com/kdikarina.png" />
+          <Avatar className={styles.avatar} src={author.avatarUrl} />
           <div className={styles.authorInfo}>
             {/* strong e span tem por padrão display inline */}
-            <strong>Karina de Almeida Lima</strong>
-            <span>Web Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="11 de maio às 08:13h" dateTime='2022-05-11 08:13:00'>
-          Publicado há 1h
+        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+        {publishedDateRelativeToNow}
         </time>
       </header>
 
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p>
-
-        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-
-        <p><a href="#">jane.design/doctorcare</a></p>
-
-        <p>
-        {/* melhor fazer com css esse espaço */}
-          <a href="">#novoprojeto</a>{' '} 
-          <a href="">#nlw</a>{' '}
-          <a href="">#rocketseat</a>
-        </p>
+      {content.map(line => {
+          if (line.type === 'paragraph') {
+            return <p>{line.content}</p>;
+          } else if (line.type === 'link') {
+            return <p><a href="#">{line.content}</a></p>
+          }
+        })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCrateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
         <textarea placeholder='Deixe um comentário'></textarea>
         
@@ -47,9 +65,9 @@ export function Post(props) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        {comments.map(comment => {
+          return <Comment />
+        })}
       </div>
     </article>
   );
