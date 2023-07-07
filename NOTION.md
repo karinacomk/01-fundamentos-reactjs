@@ -64,3 +64,25 @@ quais as condições para o resultado final
 3. quando a massa estiver pronta, eu posso retirar ela do forno
 
 # Entendendo a key
+
+a key serve para comparar os itens de uma lista renderizada e não precisar renderizar tudo novamente, ajuda a entender o que já estava em tela e o que não estava.
+a key não é exposta, a não ser com a extensão reactDevTools (aba components e profiler no devtools) dá pra ver a key.
+
+3 momentos que a tela é renderizada:
+
+1. quando o estado altera tudo é executado novamente
+2. quando a propriedade altera
+3. quando o componente pai renderiza novamente
+
+pq não usar o index do map como key? E nem números aleatórios?
+vamos supor que alteramos a ordem de valores de um array, o
+indice continuará o mesmo, mas o React vai achar que mudou e vai renderizar tudo de novo.
+
+# Comunicação entre componentes
+
+HANDLE colocar esse prefixo no nome do método de um botão clicado pelo usuário é uma boa prática.
+comunicar um componente com o outro é SEMPRE através das propriedades (passar a função como propriedade).
+componente filho chama função que está no componente pai.
+boa prática: começar o nome da propriedade com o prefixo ON no componente filho.
+
+# Removendo comentários (imutabilidade)
