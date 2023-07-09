@@ -1,6 +1,7 @@
 # Nova trilha de React JS
 
 ```jsx
+npm create vite@latest
 npm run dev
 npm audit fix
 ```
@@ -86,3 +87,52 @@ componente filho chama função que está no componente pai.
 boa prática: começar o nome da propriedade com o prefixo ON no componente filho.
 
 # Removendo comentários (imutabilidade)
+
+setComments() não recebe o comentário que quer se removido ou adicionado, ela recebe a lista de comentários atualizada, o que chamamos de imutabilidade. As coisas não sofrem mutação. Não alteramos o valor da variável, criamos um novo espaço na memória, ao chamar setComments() estamos fazendo isso.
+
+Pq? Imutabilidade traz performance já que React faz muitas comparações, comparar valor assim é mais rápido.
+
+Criar uma nova lista sem o comentário que se deseja remover é a solução. Não se altera um informação, se cria uma nova informação.
+
+# Validando formulário
+
+console.log(event)
+no console em Target vai mostrar qual é o elemento (textarea)
+em prototype vai mostrar os método, em setCustomValidity() vai mostra a mensagem
+
+# Realizando likes nos comentários
+
+handleLikecomment x handleLikecomment():
+handleLikecomment é uma função
+handleLikecomment() é a execução de uma função, aqui ele não espera o click acontecer e aí dá erro, não pode
+outra opção é criar um arrow função
+por legibilidade, criar a função é melhor.
+
+# Entendendo closures no React
+
+setLikeComment()
+setLikeComment()
+
+chamar várias x não vai fazer o like ser o dobro, porque é o mesmo contexto.
+
+como solucionar isso?
+state devolve o valor mais atual
+
+sempre q for atualizar uma info e ela depende do valor anterior (dela mesmo) é melhor usar esse padrão de função. Por ex, pra atualizar likes, eu preciso do valor anterior de likes:
+
+```js
+setLikeCount((state) => {
+  return state + 1;
+});
+```
+
+# Fundamentos do TypeScript
+
+https://www.typescriptlang.org/
+
+typescript é um super set = conjunto ferramental para adicionar tipagem estática
+na barra inferior do vscode tem a opção de selecionar a linguagem
+melhor User[] do que Array<User>
+inferência de tipos: quando o ts entende automaticamente o tipo
+
+# TypeScript no React
